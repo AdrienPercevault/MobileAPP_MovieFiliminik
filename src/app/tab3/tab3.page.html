@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>
+      Films Vus
+    </ion-title>
+  </ion-toolbar>
+  
+  <ion-toolbar no-border-top>
+    <ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let movie of moviesSee">
+      <p>{{movie.title}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

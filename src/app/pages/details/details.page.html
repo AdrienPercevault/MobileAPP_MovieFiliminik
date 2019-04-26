@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="movie" id="title">{{movie.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+  <div *ngIf="movie">
+    <div>
+      <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path" col-12 no-padding/>
+    </div>
+    <div>
+      <ion-row>
+        <ion-col left text-left>
+            <ion-badge color="dark">Date de sortie : {{movie.release_date}}</ion-badge>
+        </ion-col>
+        <ion-col right text-right>
+          <ion-badge color="dark">Note : {{movie.vote_average}}</ion-badge>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div>
+      <ion-card>
+        <ion-card-content>
+          <p>{{movie.overview}}</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col left text-center>
+            <button ion-button icon-only clear (click)="saveFavorite()" >
+              <ion-icon [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button ion-button icon-only clear (click)="processQR()">
+              <ion-icon name="barcode"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col right text-center>
+            <button ion-button icon-only clear (click)="saveMovieSee()">
+              <ion-icon [name]="see ? 'eye' : 'eye-off'"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+  </div>
+
+  <ngx-qrcode [(qrc-value)]= "processCode"></ngx-qrcode>
+
+</ion-content>
