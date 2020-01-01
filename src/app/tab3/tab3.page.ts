@@ -1,6 +1,6 @@
+// import { Subscription } from 'rxjs';
 import { Component } from '@angular/core';
 // import { NavController } from 'ionic-angular';
-// import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab3',

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../api/movie.service';
 import { Subscription } from 'rxjs';
 import { IMovie } from '../interfaces/imovie';
 import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { MovieService } from '../api/movie.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
