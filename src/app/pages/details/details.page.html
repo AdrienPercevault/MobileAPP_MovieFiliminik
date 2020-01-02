@@ -22,7 +22,13 @@
       <img *ngIf="movie.poster_path" class="poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
       <img *ngIf="movie.poster_path" class="poster-effect" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
     </div>
+
+    <ion-fab-button class="fav-icon" (click)="saveFavorite()" float-right color="light">
+      <ion-icon color="warning" [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
+    </ion-fab-button>
   </div>
+
+
 
   <div class="movie-data" *ngIf="movie">
 
@@ -59,13 +65,7 @@
       <div class="value"><span *ngFor="let genre of movie.genres; let last = last">{{ genre.name }}<span *ngIf="!last">, </span></span></div>
     </div>
 
-
     <ion-row>
-      <ion-col left text-center>
-        <button ion-button icon-only clear (click)="saveFavorite()" >
-          <ion-icon [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
-        </button>
-      </ion-col>
       <ion-col center text-center>
         <button ion-button icon-only clear (click)="processQR()">
           <ion-icon name="barcode"></ion-icon>
