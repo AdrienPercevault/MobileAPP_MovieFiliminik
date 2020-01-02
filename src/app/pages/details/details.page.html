@@ -3,51 +3,82 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="movie" id="title">{{movie.title}}</ion-title>
+    <ion-title>{{ movie?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
  
 <ion-content>
+
+  <!-- POSTER & BACKDROP -->
   <div *ngIf="movie">
-    <div>
-      <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.backdrop_path" col-12 no-padding/>
-    </div>
-    <div>
-      <ion-row>
-        <ion-col left text-left>
-            <ion-badge color="dark">Date de sortie : {{movie.release_date}}</ion-badge>
-        </ion-col>
-        <ion-col right text-right>
-          <ion-badge color="dark">Note : {{movie.vote_average}}</ion-badge>
-        </ion-col>
-      </ion-row>
+    <div class="backdrop">
+      <img *ngIf="movie.backdrop_path" [src]="'https://image.tmdb.org/t/p/original' + movie.backdrop_path">
     </div>
 
-    <div>
-      <ion-card>
-        <ion-card-content>
-          <p>{{movie.overview}}</p>
-        </ion-card-content>
-
-        <ion-row>
-          <ion-col left text-center>
-            <button ion-button icon-only clear (click)="saveFavorite()" >
-              <ion-icon [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col center text-center>
-            <button ion-button icon-only clear (click)="processQR()">
-              <ion-icon name="barcode"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col right text-center>
-            <button ion-button icon-only clear (click)="saveMovieSee()">
-              <ion-icon [name]="see ? 'eye' : 'eye-off'"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-card>
+    <div class="backdrop-separator1"></div>
+    <div class="backdrop-separator2"></div>
+  
+    <div class="poster">
+      <img *ngIf="movie.poster_path" class="poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
+      <img *ngIf="movie.poster_path" class="poster-effect" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
     </div>
+  </div>
+
+  <div class="movie-data" *ngIf="movie">
+
+    <!-- TITLE & DATE & VOTES -->
+    <div class="title">{{ movie.title }}</div>
+    <div class="year">{{ movie.release_date | date:'MM-yyyy' }}</div>
+    <div class="vote">
+      <div class="text">
+        {{ movie.vote_average }}/10
+      </div>
+      <div class="stars">
+        <ion-icon [name]="movie.vote_average >= 2 ? 'star' : movie.vote_average >= 1 ? 'star-half' : 'star-outline'"></ion-icon>
+        <ion-icon [name]="movie.vote_average >= 4 ? 'star' : movie.vote_average >= 3 ? 'star-half' : 'star-outline'"></ion-icon>
+        <ion-icon [name]="movie.vote_average >= 6 ? 'star' : movie.vote_average >= 5 ? 'star-half' : 'star-outline'"></ion-icon>
+        <ion-icon [name]="movie.vote_average >= 8 ? 'star' : movie.vote_average >= 7 ? 'star-half' : 'star-outline'"></ion-icon>
+        <ion-icon [name]="movie.vote_average >= 10 ? 'star' : movie.vote_average >= 9 ? 'star-half' : 'star-outline'"></ion-icon>
+      </div>
+      <div class="count">{{ movie.vote_count }} votes</div>
+    </div>
+
+    <!-- RESUME -->
+    <div class="overview">
+      <div class="title">Résumé :</div>
+      {{movie.overview}}
+    </div>
+
+    <!-- DURATION & GENRES -->
+    <div class="duration" *ngIf="movie && movie.runtime">
+      <div class="label"><ion-icon name="md-time"></ion-icon>Durée</div>
+      <div class="value">{{ movie.runtime }} minutes</div>
+    </div>
+    <div class="genres" *ngIf="movie && movie.genres && movie.genres.length">
+      <div class="label"><ion-icon name="md-pricetag"></ion-icon>Genres</div>
+      <div class="value"><span *ngFor="let genre of movie.genres; let last = last">{{ genre.name }}<span *ngIf="!last">, </span></span></div>
+    </div>
+
+
+    <ion-row>
+      <ion-col left text-center>
+        <button ion-button icon-only clear (click)="saveFavorite()" >
+          <ion-icon [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <button ion-button icon-only clear (click)="processQR()">
+          <ion-icon name="barcode"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col right text-center>
+        <button ion-button icon-only clear (click)="saveMovieSee()">
+          <ion-icon [name]="see ? 'eye' : 'eye-off'"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+
+
   </div>
 
   <ngx-qrcode [(qrc-value)]= "processCode"></ngx-qrcode>
