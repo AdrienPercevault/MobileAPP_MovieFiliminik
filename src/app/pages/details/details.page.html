@@ -23,7 +23,7 @@
       <img *ngIf="movie.poster_path" class="poster-effect" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
     </div>
 
-    <ion-fab-button class="fav-icon" (click)="saveFavorite()" float-right color="light">
+    <ion-fab-button class="fav-icon" (click)="saveFavorite()" float-right color="dark">
       <ion-icon color="warning" [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
     </ion-fab-button>
   </div>

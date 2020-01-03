@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../api/movie.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -17,6 +18,7 @@ export class Tab1Page implements OnInit {
   page = 1;
   filter: String = "";
 
+  sortby: string;
   scanCode = null;
   
   constructor(
@@ -26,18 +28,46 @@ export class Tab1Page implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ionViewDidLoad();
+    this.getMovies()
+    // this.ionViewDidLoad();
   }
 
-  ionViewDidLoad() {
-    this.getMovies();
-  }
+  // ionViewDidLoad() {
+  //   this.getMovies();
+  // }
 
   getMovies() {
     this.page = 1;
-    this.subs = this.movieApiService.getMovies(this.page.toString()).subscribe(data =>{
-      this.movies = data.results;
-    })
+
+    if (!this.sortby) {
+      this.subs = this.movieApiService.getMovies(this.page.toString()).subscribe(data =>{
+        this.movies = data.results;
+      })
+    }
+    switch (this.sortby) {
+      case 'popular':
+        this.subs = this.movieApiService.getPopularMovies(this.page.toString()).subscribe(data =>{
+          this.movies = data.results;
+        })
+        break;
+      case 'topRated':
+        this.subs = this.movieApiService.getTopRatedMovies(this.page.toString()).subscribe(data =>{
+          this.movies = data.results;
+        })
+        break;
+      case 'upcoming':
+        this.subs = this.movieApiService.getUpcomingMovies(this.page.toString()).subscribe(data =>{
+          this.movies = data.results;
+        })
+        break;
+    }
+  }
+
+  onTabSelected(sortbyValue: string) {
+    this.sortby = sortbyValue;
+    this.page = 1;
+    this.movies = null;
+    this.getMovies();
   }
 
   openDetailsPage(movie: IMovie) {

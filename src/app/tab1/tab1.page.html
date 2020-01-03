@@ -11,13 +11,31 @@
         <ion-searchbar [(ngModel)]="filter" (ionInput)="movieFilter($event.target.value)" debounce="500"></ion-searchbar>
       </ion-col>
       <ion-col size="2">
-        <ion-button expand="block" (click)="ScanCode()">
+        <ion-fab>
+          <ion-fab-button size="small" color="dark">
+            <ion-icon name="arrow-dropdown-circle"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="bottom">
+            <ion-fab-button (click)="onTabSelected('popular')">
+              <ion-icon name="flame"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="onTabSelected('topRated')">
+              <ion-icon name="star"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button (click)="onTabSelected('upcoming')">
+              <ion-icon name="calendar"></ion-icon>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+        <!-- <ion-button expand="block" (click)="ScanCode()">
           <ion-icon slot="icon-only" name="camera"></ion-icon>
         </ion-button>
-        <!-- <button ion-button id="nav" icon-only color="dark" #content>
+        <button ion-button id="nav" icon-only color="dark" #content>
           <ion-icon name="arrow-dropdown-circle"></ion-icon>
         </button> -->
       </ion-col>
+
+  
     </ion-row>
   </div>
 </ion-header>
@@ -25,9 +43,8 @@
 <ion-content padding>
   <ion-grid *ngIf="movies">
     <ion-row>
-      <ion-col size="6" *ngFor="let movie of movies">
-        <img [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" (click)="openDetailsPage(movie)"/>
-        <!-- <div>{{ movie.title }}</div> -->
+      <ion-col size="6" *ngFor="let movie of movies" (click)="openDetailsPage(movie)">
+        <img *ngIf="movie.poster_path" class="poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
       </ion-col>
     </ion-row>
   </ion-grid>
