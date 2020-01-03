@@ -17,13 +17,13 @@
           </ion-fab-button>
           <ion-fab-list side="bottom">
             <ion-fab-button (click)="onTabSelected('popular')">
-              <ion-icon name="flame"></ion-icon>
+              <ion-icon [color]="sortbyPopular ? 'primary' : 'Light'" name="flame"></ion-icon>
             </ion-fab-button>
             <ion-fab-button (click)="onTabSelected('topRated')">
-              <ion-icon name="star"></ion-icon>
+              <ion-icon [color]="sortbyTopRated ? 'primary' : 'Light'" name="star"></ion-icon>
             </ion-fab-button>
             <ion-fab-button (click)="onTabSelected('upcoming')">
-              <ion-icon name="calendar"></ion-icon>
+              <ion-icon [color]="sortbyUpcoming ? 'primary' : 'Light'" name="calendar"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
         </ion-fab>
@@ -34,8 +34,6 @@
           <ion-icon name="arrow-dropdown-circle"></ion-icon>
         </button> -->
       </ion-col>
-
-  
     </ion-row>
   </div>
 </ion-header>

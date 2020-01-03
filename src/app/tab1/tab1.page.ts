@@ -18,9 +18,13 @@ export class Tab1Page implements OnInit {
   page = 1;
   filter: String = "";
 
-  sortby: string;
   scanCode = null;
   
+  sortby: string;
+  sortbyPopular: boolean = false;
+  sortbyTopRated: boolean = false;
+  sortbyUpcoming: boolean = false;
+
   constructor(
     private navCtrl: NavController,
     private movieApiService: MovieService,
@@ -29,33 +33,35 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
     this.getMovies()
-    // this.ionViewDidLoad();
   }
-
-  // ionViewDidLoad() {
-  //   this.getMovies();
-  // }
 
   getMovies() {
     this.page = 1;
+    this.sortbyPopular = false;
+    this.sortbyTopRated = false;
+    this.sortbyUpcoming = false;
 
     if (!this.sortby) {
+      this.sortbyPopular = true;
       this.subs = this.movieApiService.getMovies(this.page.toString()).subscribe(data =>{
         this.movies = data.results;
       })
     }
     switch (this.sortby) {
       case 'popular':
+        this.sortbyPopular = true;
         this.subs = this.movieApiService.getPopularMovies(this.page.toString()).subscribe(data =>{
           this.movies = data.results;
         })
         break;
       case 'topRated':
+        this.sortbyTopRated = true;
         this.subs = this.movieApiService.getTopRatedMovies(this.page.toString()).subscribe(data =>{
           this.movies = data.results;
         })
         break;
       case 'upcoming':
+        this.sortbyUpcoming = true;
         this.subs = this.movieApiService.getUpcomingMovies(this.page.toString()).subscribe(data =>{
           this.movies = data.results;
         })
