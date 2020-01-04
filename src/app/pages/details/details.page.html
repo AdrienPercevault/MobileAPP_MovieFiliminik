@@ -8,7 +8,6 @@
 </ion-header>
  
 <ion-content>
-
   <!-- POSTER & BACKDROP -->
   <div *ngIf="movie">
     <div class="backdrop">
@@ -23,15 +22,12 @@
       <img *ngIf="movie.poster_path" class="poster-effect" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path">
     </div>
 
-    <ion-fab-button class="fav-icon" (click)="saveFavorite()" float-right color="dark">
+    <ion-fab-button class="fav-icon ion-float-right" (click)="saveFavorite()" color="dark">
       <ion-icon color="warning" [name]="favorite ? 'star' : 'star-outline'"></ion-icon>
     </ion-fab-button>
   </div>
 
-
-
   <div class="movie-data" *ngIf="movie">
-
     <!-- TITLE & DATE & VOTES -->
     <div class="title">{{ movie.title }}</div>
     <div class="year">{{ movie.release_date | date:'MM-yyyy' }}</div>
@@ -66,19 +62,17 @@
     </div>
 
     <ion-row>
-      <ion-col center text-center>
-        <button ion-button icon-only clear (click)="processQR()">
+      <ion-col center class="ion-text-center">
+        <ion-button icon-only clear (click)="processQR()">
           <ion-icon name="barcode"></ion-icon>
-        </button>
+        </ion-button>
       </ion-col>
-      <ion-col right text-center>
-        <button ion-button icon-only clear (click)="saveMovieSee()">
+      <ion-col right class="ion-text-center">
+        <ion-button icon-only clear (click)="saveMovieSee()">
           <ion-icon [name]="see ? 'eye' : 'eye-off'"></ion-icon>
-        </button>
+        </ion-button>
       </ion-col>
     </ion-row>
-
-
   </div>
 
   <ngx-qrcode [(qrc-value)]= "processCode"></ngx-qrcode>
